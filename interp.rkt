@@ -6,31 +6,19 @@
 ;; Análisis semántico del lenguaje. El analizador semántico se encarga de dar
 ;; un significado al árbol de sintaxis abstracta.
 
-;;Funcion que indica si una id se encuentra en una lista de  binding
-(define (contiene-id binding-list busca-id)
- ( if (eq? (car (member #t (map (lambda (arg) (if (eq? (binding-name arg) busca-id) #t #f)) (list (binding 'a (num 5)) (binding 'a (num 6)))))) #t)
-      #t
-      #f))
-
-
 
 ;;fucnion que manda a llamar a subst por cada binding en la lista
-;;subst-bindings: FWAE listof binding->FWAE
+;;subst-bindings: FWAE (listof Binding)->FWAE
 (define (subst-bindings expr binding)
   (if (not (empty? (rest binding)))
       (subst-bindings (subst expr (binding-name (first binding)) (binding-value (first binding))) (rest binding))
-      (subst expr (binding-name (first binding)) (binding-value (first binding))))
-
-)
-
+      (subst expr (binding-name (first binding)) (binding-value (first binding)))))
 
 ;crea un binding con una lista de parametros y otra lista de valores FWAE
 ;las listas deben ser del mismo tamano
+;crea-binding: (listof symbol)  (listof FWAE)-> (listof Binding) 
 (define (crea-binding name-list  value-list)
-(map (lambda (name list) (binding name list)) name-list value-list )
-
-  
-  )
+(map (lambda (name list) (binding name list)) name-list value-list ))
 
 
 ;; Función que implementa el algoritmo de sustitución.
@@ -52,7 +40,7 @@
      
       #| Para with tenemos que considerar dos casos |#
       [(with binding bound-body) ; MODIFICAR ESTE CASO
-         (if (eq? (contiene-id binding sub-id) #t)
+         (if (member #t (map (lambda (arg) (if (eq? (binding-name arg) sub-id) #t #f)) binding))
             #| Si el identificador de la expresión with es igual al del 
                valor a sustituir, simplemente sustituimos en la expresión
                asociada al identificador, pues el alcance del cuerpo del 
