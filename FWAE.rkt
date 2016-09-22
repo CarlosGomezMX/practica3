@@ -7,7 +7,10 @@
 (define-type FWAE
    [num (n number?)]
    [binop (f procedure?) (l FWAE?) (r FWAE?)]
-   [with (name symbol?) (named-expr FWAE?) (body FWAE?)] ; modificar este constructor
+   [with (name-value (listof Binding?)) (body FWAE?)] ; modificar este constructor
    [id (name symbol?)]
-   [fun (param symbol?) (body FWAE?)] ; modificar este constructor
-   [app (fun-expr FWAE?) (arg-expr FWAE?)])
+   [fun (param (listof symbol?)) (body FWAE?)] ; modificar este constructor
+   [app (fun-expr FWAE?) (arg-expr (listof FWAE?))])
+
+(define-type Binding
+  [binding (name symbol?) (value FWAE?)])
