@@ -41,8 +41,11 @@
                   (parse (caddr sexp)))]
             [(with) ; para asignaciones locales MODIFICAR ESTE CASO
                (with
+                (if (list? (first (second sexp)))
                   (map (lambda (x) (binding (first x)  (num (second x)))) (second sexp) )
-                   (parse (third sexp)))]
+                  (list (binding (first (second sexp))  (num (second (second sexp)))))
+                  )
+                  (parse (third sexp)))]
             [(fun) ; para lambdas MODIFICAR ESTE CASO
                (fun
                   (second sexp)
@@ -53,4 +56,4 @@
                (app
                   (parse (first sexp))
                   (parse (rest sexp)))])
-         ]))
+         )]))
