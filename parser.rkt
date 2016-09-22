@@ -35,10 +35,12 @@
               (map(lambda (x) (parse x)) sexp)
          (case (car sexp)
             [(+ - * - / % max min pow) ; para operaciones binarias
-               (binop
-                  (elige (car sexp))
-                  (parse (cadr sexp))
-                  (parse (caddr sexp)))]
+               (binop ;modificado para el punto extra Carlos Gomez
+                  (elige (first sexp))
+                  (parse (second sexp))
+                  (if(> (length (rest (rest sexp))) 1)
+                      (parse (append (list (first sexp)) (rest (rest sexp))) )
+                      (parse (third sexp))))]
             [(with) ; para asignaciones locales MODIFICAR ESTE CASO
                (with
                 (if (list? (first (second sexp)))
