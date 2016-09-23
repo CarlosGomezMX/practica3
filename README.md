@@ -1,3 +1,4 @@
-# practica3
+# [LDP-P03]
 Equipo Atun
-Practica  3 LDP
+carlos alberto gomez vazquez	contacto@carlosgomez.mx
+Javier Hernández Mendoza	javiern_n@ciencias.unam.mx
